@@ -109,97 +109,105 @@
 			<div class="col-sm-6">
 				<ul class="list-group">
 					<li class="list-group-item">
-						<h5 class="list-group-item-heading">Media X</h5>
-						<p class="list-group-item-text">
-						<div class="equation">
-							<mx></mx>
-							&nbsp;=&nbsp; <span class="frac"><sup>&#8512;x</sup><span>/</span><sub>n</sub></span>
-							<span> &nbsp;&nbsp;&#8594;&nbsp;</span> <span class="frac"><sup>{{zx}}</sup><span>/</span><sub>{{n}}</sub></span>
-							<span> = {{mx}}</span>
-						</div>
-
-						</p>
-					</li>
-					<li class="list-group-item">
-						<h5 class="list-group-item-heading">Media Y</h5>
-						<p class="list-group-item-text">
-						<div class="equation">
-							<my></my>
-							&nbsp;=&nbsp; <span class="frac"><sup>&#8512;y</sup><span>/</span><sub>n</sub></span>
-							<span> &nbsp;&nbsp;&#8594; &nbsp;</span> <span class="frac"><sup>{{zy}}</sup><span>/</span><sub>{{n}}</sub></span>
-							<span> = {{my}}</span>
-						</div>
-						</p>
-					</li>
-
-
-
-					<li class="list-group-item">
-						<h5 class="list-group-item-heading">Varianza</h5>
-						<p class="list-group-item-text">
-						<div class="equation">
-							σ<sup>2</sup>&nbsp;=&nbsp; <span class="frac"><sup>1</sup><span>/</span><sub>n</sub></span>
-							&#8512;(x<sub>i</sub> -
-							<mx></mx>
-							)<sup>2</sup> <span> &nbsp;&nbsp;&#8594; &nbsp;</span> <span
-								class="frac"><sup>!</sup><span>/</span><sub>!</sub></span> <span>
-								= {{vx}}</span>
-						</div>
-						</p>
-					</li>
-
-					<li class="list-group-item">
-						<h5 class="list-group-item-heading">Desviación</h5>
-						<p class="list-group-item-text">
-						<div class="equation">
-							σ&nbsp;=&nbsp;&radic;({{vx}})&nbsp;&#8594;&nbsp;{{dv}}&nbsp;</div>
-						</p>
-					</li>
-
-
-					<li class="list-group-item">
-						<h5 class="list-group-item-heading">Covarianza</h5>
-						<p class="list-group-item-text">
-						<div class="equation">
-							σ<sub>xy</sub>&nbsp;=&nbsp; <span class="frac"><sup>&#8512;x
-									* y</sup><span>/</span><sub>n</sub></span> - (
-							<mx></mx>
-							*
-							<my></my>
-							) &nbsp;<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#8594;&nbsp; <span
-								class="frac"><sup>{{zxxy}}</sup><span>/</span><sub>{{n}}</sub></span>
-							- ({{mx}} * {{my}})&nbsp;=&nbsp; {{cvx}}
+						<h5 class="list-group-item-heading" ng-click="show_mx = !show_mx">Media
+							X</h5>
+						<div class="list-group-item-text" ng-show="show_mx">
+							<div class="equation">
+								<mx></mx>
+								&nbsp;=&nbsp; <span class="frac"><sup>&#8512;x</sup><span>/</span><sub>n</sub></span>
+								<span> &nbsp;&nbsp;&#8594;&nbsp;</span> <span class="frac"><sup>{{zx}}</sup><span>/</span><sub>{{n}}</sub></span>
+								<span> = {{mx}}</span>
+							</div>
 
 						</div>
-						</p>
+						<p></p>
+					</li>
+					<li class="list-group-item">
+						<h5 class="list-group-item-heading" ng-click="show_my = !show_my">Media
+							Y</h5>
+						<div class="list-group-item-text" ng-show="show_my">
+							<div class="equation">
+								<my></my>
+								&nbsp;=&nbsp; <span class="frac"><sup>&#8512;y</sup><span>/</span><sub>n</sub></span>
+								<span> &nbsp;&nbsp;&#8594; &nbsp;</span> <span class="frac"><sup>{{zy}}</sup><span>/</span><sub>{{n}}</sub></span>
+								<span> = {{my}}</span>
+							</div>
+						</div>
+						<p></p>
+					</li>
+
+
+
+					<li class="list-group-item">
+						<h5 class="list-group-item-heading" ng-click="show_vx = !show_vx">Varianza</h5>
+						<div class="list-group-item-text" ng-show="show_vx">
+							<div class="equation">
+								σ<sup>2</sup>&nbsp;=&nbsp; <span class="frac"><sup>1</sup><span>/</span><sub>n</sub></span>
+								&#8512;(x<sub>i</sub> -
+								<mx></mx>
+								)<sup>2</sup> <span> &nbsp;&nbsp;&#8594; &nbsp;</span> <span
+									class="frac"><sup>!</sup><span>/</span><sub>!</sub></span> <span>
+									= {{vx}}</span>
+							</div>
+						</div>
+					</li>
+
+					<li class="list-group-item">
+						<h5 class="list-group-item-heading" ng-click="show_dx = !show_dx">Desviación</h5>
+						<div class="list-group-item-text" ng-show="show_dx">
+							<div class="equation">
+								σ&nbsp;=&nbsp;&radic;({{vx}})&nbsp;&#8594;&nbsp;{{dv}}&nbsp;</div>
+						</div>
 					</li>
 
 
 					<li class="list-group-item">
-						<h5 class="list-group-item-heading">Regresion lineal</h5>
-						<p class="list-group-item-text">
-						<div class="equation">y = m x + b;</div>
-						<div class="equation">
-							m = <span class="frac"> <!-- 					numerador ######################################		-->
-								<sup> σ<sub>xy</sub>
-							</sup> <!-- 						numerador ######################################--> <span>/</span>
-								<!-- 						numerador ######################################--> <sub>
-									σ<sup>2</sup>
-							</sub></span> &nbsp;&nbsp;=&nbsp; <span class="frac"> <!-- 					numerador ######################################		-->
-								<sup> {{cvx}} </sup> <!-- 						numerador ######################################-->
-								<span>/</span> <!-- 						numerador ######################################-->
-								<sub> {{vx}} </sub></span> &nbsp;&nbsp;=&nbsp; {{m}}
+						<h5 class="list-group-item-heading"
+							ng-click="show_cvx = !show_cvx">Covarianza</h5>
+						<div class="list-group-item-text" ng-show="show_cvx">
+							<div class="equation">
+								σ<sub>xy</sub>&nbsp;=&nbsp; <span class="frac"><sup>&#8512;x
+										* y</sup><span>/</span><sub>n</sub></span> - (
+								<mx></mx>
+								*
+								<my></my>
+								) &nbsp;<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#8594;&nbsp; <span
+									class="frac"><sup>{{zxxy}}</sup><span>/</span><sub>{{n}}</sub></span>
+								- ({{mx}} * {{my}})&nbsp;=&nbsp; {{cvx}}
 
-						</div> <br> <br>
-						<div class="equation">
-							b = &nbsp;
-							<my></my>
-							- m*
-							<mx></mx>
-							<br>&nbsp;&nbsp;&#8594;&nbsp;
-							{{my}}-({{m}}*{{mx}})&nbsp;&nbsp;=&nbsp{{b}};
+							</div>
+						</div>
+					</li>
 
-							<!-- 							<frac n="3" d="3" /> -->
+
+					<li class="list-group-item">
+						<h5 class="list-group-item-heading" ng-click="show_rl = !show_rl">Regresion
+							lineal</h5>
+						<div class="list-group-item-text" ng-show="show_rl">
+							<div class="equation">y = m x + b;</div>
+							<div class="equation">
+								m = <span class="frac"> <!-- 					numerador ######################################		-->
+									<sup> σ<sub>xy</sub>
+								</sup> <!-- 						numerador ######################################-->
+									<span>/</span> <!-- 						numerador ######################################-->
+									<sub> σ<sup>2</sup>
+								</sub></span> &nbsp;&nbsp;=&nbsp; <span class="frac"> <!-- 					numerador ######################################		-->
+									<sup> {{cvx}} </sup> <!-- 						numerador ######################################-->
+									<span>/</span> <!-- 						numerador ######################################-->
+									<sub> {{vx}} </sub></span> &nbsp;&nbsp;=&nbsp; {{m}}
+
+							</div>
+							<br> <br>
+							<div class="equation">
+								b = &nbsp;
+								<my></my>
+								- m*
+								<mx></mx>
+								<br>&nbsp;&nbsp;&#8594;&nbsp;
+								{{my}}-({{m}}*{{mx}})&nbsp;&nbsp;=&nbsp{{b}};
+
+								<!-- 							<frac n="3" d="3" /> -->
+							</div>
 						</div>
 
 

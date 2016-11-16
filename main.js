@@ -26,6 +26,13 @@ app.directive('frac', frac);
 
 app.controller('main', function($scope) {
 
+	$scope.show_mx = false;
+	$scope.show_my = false;
+	$scope.show_vx = false;
+	$scope.show_dx = false;
+	$scope.show_cvx = false;
+	$scope.show_rl = false;
+
 	$scope.datos = "160\t58\n165\t61\n170\t65\n180\t73\n185\t80";
 	$scope.points = [];
 	$scope.zx = 0;
@@ -48,14 +55,14 @@ app.controller('main', function($scope) {
 	// recata y = mx + b
 	$scope.m = 0;
 	$scope.b = 0;
-	
-	
+
 	$scope.aproximar = 5;
 
 	var _graph = function() {
 
 		// Define the chart to be drawn.
 		var data = new google.visualization.DataTable();
+		window.data = data;
 		data.addColumn('number', 'Age');
 		data.addColumn('number', 'Weight');
 
@@ -89,6 +96,7 @@ app.controller('main', function($scope) {
 		var chart = new google.visualization.ScatterChart(document
 				.getElementById('defaulGrap'));
 		chart.draw(data, options);
+		window.chart = chart;
 	}
 
 	$scope.calcular = function() {
@@ -150,13 +158,15 @@ app.controller('main', function($scope) {
 		$scope.vx = (sv / n).toFixed($scope.aproximar);
 		$scope.vy = (sy / n).toFixed($scope.aproximar);
 		// covarianza
-		$scope.cvx = ((sumxxy / n) - ($scope.mx * $scope.my)).toFixed($scope.aproximar);
+		$scope.cvx = ((sumxxy / n) - ($scope.mx * $scope.my))
+				.toFixed($scope.aproximar);
 		// desviacion
 		$scope.dv = Math.sqrt($scope.vx).toFixed($scope.aproximar);
 		$scope.dy = Math.sqrt($scope.vy).toFixed($scope.aproximar);
-		
-		$scope.m = ($scope.cvx/$scope.vx).toFixed($scope.aproximar);
-		$scope.b = ($scope.my - ($scope.m * $scope.mx)).toFixed($scope.aproximar);
+
+		$scope.m = ($scope.cvx / $scope.vx).toFixed($scope.aproximar);
+		$scope.b = ($scope.my - ($scope.m * $scope.mx))
+				.toFixed($scope.aproximar);
 		_graph();
 
 	}
