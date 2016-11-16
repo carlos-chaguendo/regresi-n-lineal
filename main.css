@@ -1,0 +1,97 @@
+html {
+	margin-top: 40px;
+}
+
+span.frac {
+	display: inline-block;
+	/*font-size: 50%;*/
+	text-align: center;
+	transform: translateY(50%);
+}
+
+span.frac>sup {
+	display: block;
+	border-bottom: 1px solid;
+	font: inherit;
+}
+
+span.frac>span {
+	display: none;
+}
+
+span.frac>sub {
+	display: block;
+	font: inherit;
+	transform: translateY(-0.8em);
+}
+
+.valign-wrapper {
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-align-items: center;
+	-ms-flex-align: center;
+	align-items: center;
+}
+
+.valign-wrapper .valign {
+	display: block;
+}
+
+@font-face {
+	font-family: 'MJX_Math';
+	src:
+		url('http://cdn.mathjax.org/mathjax/latest/fonts/HTML-CSS/TeX/eot/MathJax_Math-Italic.eot');
+	/* IE9 Compat Modes */
+	src:
+		url('http://cdn.mathjax.org/mathjax/latest/fonts/HTML-CSS/TeX/eot/MathJax_Math-Italic.eot?iefix')
+		format('eot'),
+		url('http://cdn.mathjax.org/mathjax/latest/fonts/HTML-CSS/TeX/woff/MathJax_Math-Italic.woff')
+		format('woff'),
+		url('http://cdn.mathjax.org/mathjax/latest/fonts/HTML-CSS/TeX/otf/MathJax_Math-Italic.otf')
+		format('opentype'),
+		url('http://cdn.mathjax.org/mathjax/latest/fonts/HTML-CSS/TeX/svg/MathJax_Math-Italic.svg#MathJax_Math-Italic')
+		format('svg');
+}
+
+@font-face {
+	font-family: 'MJX_Main';
+	src:
+		url('http://cdn.mathjax.org/mathjax/latest/fonts/HTML-CSS/TeX/eot/MathJax_Main-Regular.eot');
+	/* IE9 Compat Modes */
+	src:
+		url('http://cdn.mathjax.org/mathjax/latest/fonts/HTML-CSS/TeX/eot/MathJax_Main-Regular.eot?iefix')
+		format('eot'),
+		url('http://cdn.mathjax.org/mathjax/latest/fonts/HTML-CSS/TeX/woff/MathJax_Main-Regular.woff')
+		format('woff'),
+		url('http://cdn.mathjax.org/mathjax/latest/fonts/HTML-CSS/TeX/otf/MathJax_Main-Regular.otf')
+		format('opentype'),
+		url('http://cdn.mathjax.org/mathjax/latest/fonts/HTML-CSS/TeX/svg/MathJax_Main-Regular.svg#MathJax_Main-Regular')
+		format('svg');
+}
+
+.equation {
+	font-family: MJX_Math;
+	font-size: 20px;
+}
+
+mx,my {
+	width: 1rem;
+	display: inline-block;
+	height: 1rem;
+}
+mx::before,my::before {
+    content: '_';
+    position: absolute;
+    transform: translatey(-2.5rem);
+}
+mx::after {
+    content: 'x';
+    position: absolute;
+    transform: translateY(-1rem);
+}
+my::after {
+    content: 'y';
+    position: absolute;
+    transform: translateY(-1rem);
+}

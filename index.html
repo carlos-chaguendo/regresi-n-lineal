@@ -1,233 +1,233 @@
-<html>
-
 <!DOCTYPE html>
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <title>Regresion lineal</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<meta charset="utf-8">
+<title>Regresion lineal</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<link rel="stylesheet" href="main.css" />
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.1/lodash.js"></script>
+<script
+	src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script
+	src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-sanitize.js"></script>
 
-    <style>
-        html {
-            margin-top: 40px;
-        }
-        
-        span.frac {
-            display: inline-block;
-            /*font-size: 50%;*/
-            text-align: center;
-            transform: translateY(50%);
-        }
-        
-        span.frac > sup {
-            display: block;
-            border-bottom: 1px solid;
-            font: inherit;
-        }
-        
-        span.frac > span {
-            display: none;
-        }
-        
-        span.frac > sub {
-            display: block;
-            font: inherit;
-            transform: translateY(-0.8em);
-        }
-        
-        .valign-wrapper {
-            display: -webkit-flex;
-            display: -ms-flexbox;
-            display: flex;
-            -webkit-align-items: center;
-            -ms-flex-align: center;
-            align-items: center;
-        }
-        
-        .valign-wrapper .valign {
-            display: block;
-        }
-        
-        @font-face {
-            font-family: 'MJX_Math';
-            src: url('http://cdn.mathjax.org/mathjax/latest/fonts/HTML-CSS/TeX/eot/MathJax_Math-Italic.eot');
-            /* IE9 Compat Modes */
-            src: url('http://cdn.mathjax.org/mathjax/latest/fonts/HTML-CSS/TeX/eot/MathJax_Math-Italic.eot?iefix') format('eot'), url('http://cdn.mathjax.org/mathjax/latest/fonts/HTML-CSS/TeX/woff/MathJax_Math-Italic.woff') format('woff'), url('http://cdn.mathjax.org/mathjax/latest/fonts/HTML-CSS/TeX/otf/MathJax_Math-Italic.otf') format('opentype'), url('http://cdn.mathjax.org/mathjax/latest/fonts/HTML-CSS/TeX/svg/MathJax_Math-Italic.svg#MathJax_Math-Italic') format('svg');
-        }
-        
-        @font-face {
-            font-family: 'MJX_Main';
-            src: url('http://cdn.mathjax.org/mathjax/latest/fonts/HTML-CSS/TeX/eot/MathJax_Main-Regular.eot');
-            /* IE9 Compat Modes */
-            src: url('http://cdn.mathjax.org/mathjax/latest/fonts/HTML-CSS/TeX/eot/MathJax_Main-Regular.eot?iefix') format('eot'), url('http://cdn.mathjax.org/mathjax/latest/fonts/HTML-CSS/TeX/woff/MathJax_Main-Regular.woff') format('woff'), url('http://cdn.mathjax.org/mathjax/latest/fonts/HTML-CSS/TeX/otf/MathJax_Main-Regular.otf') format('opentype'), url('http://cdn.mathjax.org/mathjax/latest/fonts/HTML-CSS/TeX/svg/MathJax_Main-Regular.svg#MathJax_Main-Regular') format('svg');
-        }
-        
-        .equation {
-            font-family: MJX_Math;
-            font-size: 20px;
-        }
-    </style>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.1/lodash.js"></script>
+
+
+<script type="text/javascript"
+	src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+     google.charts.load('current', {packages: ['corechart']});     
+   	</script>
+
+
+
 </head>
 
 <body ng-app="myApp" ng-controller="main">
 
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-2">
-                <form class="form-horizontal" onsubmit="return false;">
-                    <fieldset>
-
-                        <!-- Form Name -->
-                        <legend>Datos</legend>
-
-                        <!-- Textarea -->
-                        <div class="form-group">
-
-                            <div class="col-md-12">
-                                <textarea class="form-control" rows="10" id="textarea" ng-model="datos" name="textarea" placeholder="160      58
-165     61
-170     65
-180     73
-185     80">160 58 165 61 170 65 180 73 185 80</textarea>
-                            </div>
-                        </div>
-
-                        <!-- Button -->
-                        <div class="form-group">
-                            <div class="col-md-4">
-                                <button id="singlebutton" name="singlebutton" class="btn btn-primary" type="submit" ng-click="calcular()">Calcular</button>
-                            </div>
-                        </div>
-
-                    </fieldset>
-                </form>
-            </div>
-
-
-
-
-
-
-            <!--  tabulacion -->
-            <div class="col-sm-4">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>X</th>
-                            <th>Y</th>
-                            <th>X^2</th>
-                            <th>Y^2</th>
-                            <th>x*y</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="p in points">
-                            <td>{{p.x}}</td>
-                            <td>{{p.y}}</td>
-                            <td>{{p.x2}}</td>
-                            <td>{{p.y2}}</td>
-                            <td>{{p.xy}}</td>
-                        </tr>
-                    </tbody>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-2">
+				<form class="form-horizontal" onsubmit="return false;">
+					<fieldset>
+
+						<!-- Form Name -->
+						<legend>Datos</legend>
+
+						<!-- Textarea -->
+						<div class="form-group">
+
+							<div class="col-md-12">
+								<textarea class="form-control" rows="10" id="textarea"
+									ng-model="datos" name="textarea"></textarea>
+							</div>
+						</div>
+
+						<!-- Button -->
+						<div class="form-group">
+							<div class="col-md-4">
+								<button id="singlebutton" name="singlebutton"
+									class="btn btn-primary" type="submit" ng-click="calcular()">Calcular</button>
+							</div>
+						</div>
+
+					</fieldset>
+				</form>
+
+			</div>
+
+
+
+
+
+
+			<!--  tabulacion -->
+			<div class="col-sm-4">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>X</th>
+							<th>Y</th>
+							<th>X^2</th>
+							<th>Y^2</th>
+							<th>x*y</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="p in points">
+							<td>{{p.x}}</td>
+							<td>{{p.y}}</td>
+							<td>{{p.x2}}</td>
+							<td>{{p.y2}}</td>
+							<td>{{p.xy}}</td>
+						</tr>
+					</tbody>
+
+					<tfoot>
+						<tr>
+							<td class="alert-success">{{zx}}</td>
+							<td class="alert-success">{{zy}}</td>
+							<td class="alert-success-"></td>
+							<td class="alert-success-"></td>
+							<td class="alert-success">{{zxxy}}</td>
+
+
+						</tr>
+					</tfoot>
+				</table>
+
+			</div>
+
+			<!-- Variables medias y demas -->
+			<div class="col-sm-6">
+				<ul class="list-group">
+					<li class="list-group-item">
+						<h5 class="list-group-item-heading">Media X</h5>
+						<p class="list-group-item-text">
+						<div class="equation">
+							<mx></mx>
+							&nbsp;=&nbsp; <span class="frac"><sup>&#8512;x</sup><span>/</span><sub>n</sub></span>
+							<span> &nbsp;&nbsp;&#8594;&nbsp;</span> <span class="frac"><sup>{{zx}}</sup><span>/</span><sub>{{n}}</sub></span>
+							<span> = {{mx}}</span>
+						</div>
+
+						</p>
+					</li>
+					<li class="list-group-item">
+						<h5 class="list-group-item-heading">Media Y</h5>
+						<p class="list-group-item-text">
+						<div class="equation">
+							<my></my>
+							&nbsp;=&nbsp; <span class="frac"><sup>&#8512;y</sup><span>/</span><sub>n</sub></span>
+							<span> &nbsp;&nbsp;&#8594; &nbsp;</span> <span class="frac"><sup>{{zy}}</sup><span>/</span><sub>{{n}}</sub></span>
+							<span> = {{my}}</span>
+						</div>
+						</p>
+					</li>
+
+
 
-                    <tfoot>
-                        <tr>
-                            <td class="alert-success">{{zx}}</td>
-                            <td class="alert-success">{{zy}}</td>
-                            <td class="alert-success-"></td>
-                            <td class="alert-success-"></td>
-                            <td class="alert-success">{{zxxy}}</td>
+					<li class="list-group-item">
+						<h5 class="list-group-item-heading">Varianza</h5>
+						<p class="list-group-item-text">
+						<div class="equation">
+							σ<sup>2</sup>&nbsp;=&nbsp; <span class="frac"><sup>1</sup><span>/</span><sub>n</sub></span>
+							&#8512;(x<sub>i</sub> -
+							<mx></mx>
+							)<sup>2</sup> <span> &nbsp;&nbsp;&#8594; &nbsp;</span> <span
+								class="frac"><sup>!</sup><span>/</span><sub>!</sub></span> <span>
+								= {{vx}}</span>
+						</div>
+						</p>
+					</li>
 
+					<li class="list-group-item">
+						<h5 class="list-group-item-heading">Desviación</h5>
+						<p class="list-group-item-text">
+						<div class="equation">
+							σ&nbsp;=&nbsp;&radic;({{vx}})&nbsp;&#8594;&nbsp;{{dv}}&nbsp;</div>
+						</p>
+					</li>
 
-                        </tr>
-                    </tfoot>
-                </table>
 
-            </div>
+					<li class="list-group-item">
+						<h5 class="list-group-item-heading">Covarianza</h5>
+						<p class="list-group-item-text">
+						<div class="equation">
+							σ<sub>xy</sub>&nbsp;=&nbsp; <span class="frac"><sup>&#8512;x
+									* y</sup><span>/</span><sub>n</sub></span> - (
+							<mx></mx>
+							*
+							<my></my>
+							) &nbsp;<br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#8594;&nbsp; <span
+								class="frac"><sup>{{zxxy}}</sup><span>/</span><sub>{{n}}</sub></span>
+							- ({{mx}} * {{my}})&nbsp;=&nbsp; {{cvx}}
 
-            <!-- Variables medias y demas -->
-            <div class="col-sm-6">
-                <ul class="list-group">
-                    <li class="list-group-item">
-                        <h5 class="list-group-item-heading">Media X</h5>
-                        <p class="list-group-item-text">
+						</div>
+						</p>
+					</li>
 
 
-                            <div class="equation">
-                                ¯x&nbsp;=&nbsp;
+					<li class="list-group-item">
+						<h5 class="list-group-item-heading">Regresion lineal</h5>
+						<p class="list-group-item-text">
+						<div class="equation">y = m x + b;</div>
+						<div class="equation">
+							m = <span class="frac"> <!-- 					numerador ######################################		-->
+								<sup> σ<sub>xy</sub>
+							</sup> <!-- 						numerador ######################################--> <span>/</span>
+								<!-- 						numerador ######################################--> <sub>
+									σ<sup>2</sup>
+							</sub></span> &nbsp;&nbsp;=&nbsp; <span class="frac"> <!-- 					numerador ######################################		-->
+								<sup> {{cvx}} </sup> <!-- 						numerador ######################################-->
+								<span>/</span> <!-- 						numerador ######################################-->
+								<sub> {{vx}} </sub></span> &nbsp;&nbsp;=&nbsp; {{m}}
 
-                                <span class="frac"><sup>&#8512;x</sup><span>/</span><sub>n</sub></span>
-                                <span> &nbsp;&nbsp;&#8594;&nbsp;</span>
+						</div> <br> <br>
+						<div class="equation">
+							b = &nbsp;
+							<my></my>
+							- m*
+							<mx></mx>
+							<br>&nbsp;&nbsp;&#8594;&nbsp;
+							{{my}}-({{m}}*{{mx}})&nbsp;&nbsp;=&nbsp{{b}};
 
+							<!-- 							<frac n="3" d="3" /> -->
+						</div>
 
-                                <span class="frac"><sup>{{zx}}</sup><span>/</span><sub>{{n}}</sub></span>
-                                <span> = {{mx}}</span>
-                            </div>
 
-                        </p>
-                    </li>
-                    <li class="list-group-item">
-                        <h5 class="list-group-item-heading">Media Y σ<sup>2</sup></h5>
-                        <p class="list-group-item-text">
+					</li>
 
-                            <div class="equation">
-                                ¯y&nbsp;=&nbsp;
 
-                                <span class="frac"><sup>&#8512;y</sup><span>/</span><sub>n</sub></span>
-                                <span> &nbsp;&nbsp;&#8594; &nbsp;</span>
-                                <span class="frac"><sup>{{zy}}</sup><span>/</span><sub>{{n}}</sub></span>
-                                <span> = {{my}}</span>
-                            </div>
-                        </p>
-                    </li>
 
 
 
-                    <li class="list-group-item">
-                        <h5 class="list-group-item-heading">Varianza</h5>
-                        <p class="list-group-item-text">
 
-                            <div class="equation">
-                                σ<sup>2</sup>&nbsp;=&nbsp;
-                                <span class="frac"><sup>1</sup><span>/</span><sub>n</sub></span>
-                                &#8512;(x<sub>i</sub> - ¯x)<sup>2</sup>
-                                <span> &nbsp;&nbsp;&#8594; &nbsp;</span>
-                                <span class="frac"><sup>!</sup><span>/</span><sub>!</sub></span>
-                                <span> = {{vx}}</span>
-                            </div>
-                        </p>
-                    </li>
 
-                    <li class="list-group-item">
-                        <h5 class="list-group-item-heading">Desviación</h5>
-                        <p class="list-group-item-text">
 
-                            <div class="equation">
-                                σ&nbsp;=&nbsp;&radic;(σ<sup>2</sup>)&nbsp;&#8594;&nbsp;{{dv}}&nbsp;
 
-                            </div>
-                        </p>
-                    </li>
+				</ul>
 
+			</div>
 
-                    <li class="list-group-item">
-                        <h5 class="list-group-item-heading">Covarianza </h5>
-                        <p class="list-group-item-text">
+		</div>
 
-                            <div class="equation">
-                                σ<sub>xy</sub>&nbsp;=&nbsp; <span class="frac"><sup>&#8512;x * y</sup><span>/</span><sub>n</sub></span> - (¯x * ¯y) &nbsp;&#8594;&nbsp;
+		<div class="row">
+			<div class="col-sm-12">
+				<div id="defaulGrap"
+					style="width: 850px; height: 500px; margin: 0 auto"></div>
+			</div>
+		</div>
 
-                                <span class="frac"><sup>{{zxxy}}</sup><span>/</span><sub>{{n}}</sub></span> - ({{mx}} * {{my}})&nbsp;=&nbsp; {{cvx}}
+	</div>
 
-                            </div>
-                        </p>
-                    </li>
 
 
 
@@ -236,143 +236,8 @@
 
 
 
-                </ul>
 
-            </div>
-
-        </div>
-    </div>
-
-
-
-
-
-
-
-
-
-
-    <script type="text/javascript">
-        String.prototype.replaceAll = function (search, replacement) {
-            var target = this;
-            return target.replace(new RegExp(search, 'g'), replacement);
-        };
-
-
-        var app = angular.module('myApp', []);
-        app.controller('main', function ($scope) {
-
-
-            $scope.datos = "";
-            $scope.points = [];
-            $scope.zx = 0;
-            $scope.zy = 0;
-            $scope.zxxy = 0;
-            $scope.n = 0;
-
-
-            // Medias
-            $scope.mx = 0;
-            $scope.my = 0;
-
-            // varianza 
-            $scope.vx = 0;
-            $scope.vy = 0;
-            // desviacion
-            $scope.dv = 0;
-            // covarianza
-            $scope.cvx = 0;
-
-            $scope.calcular = function () {
-
-
-                var data = $scope.datos || document.querySelector('#textarea').value;
-                if (!data) {
-                    alert('Faltan datos');
-                    return
-                }
-
-
-
-
-                var points = [],
-                    sumx = 0,
-                    sumy = 0,
-                    sumxxy = 0,
-                    n = 0;
-
-                var tokens = data.split('\n');
-                _.forEach(tokens, function (e) {
-
-                    var point = e.replace(/ +/g, ' ').split('\t');
-                    if (point.length < 2) {
-                        point = e.replace(/ +/g, ' ').split(' ');
-                    }
-
-
-
-                    var x = parseFloat(point[0]),
-                        y = parseFloat(point[1]);
-
-                    n++;
-                    sumx += x;
-                    sumy += y;
-                    sumxxy += x * y;
-
-                    points.push({
-                        x: x,
-                        y: y,
-                        x2: (x * x),
-                        y2: (y * y),
-                        xy: x * y,
-                    })
-                });
-
-
-
-
-
-
-
-
-                console.info(points)
-
-                $scope.mx = sumx / n;
-                $scope.my = sumy / n;
-                $scope.zxxy = sumxxy
-
-                // suma de varianxaz = sv
-                var sv = 0,
-                    sy = 0;
-                _.forEach(points, function (p) {
-                    p.vx = (p.x - $scope.mx) * (p.x - $scope.mx) // varianza x
-                    p.vy = (p.y - $scope.my) * (p.y - $scope.my) // varianza y
-                    sv += p.vx
-                    sy += p.vy
-                });
-
-                // Clear prevous dats
-                $scope.zx = sumx;
-                $scope.zy = sumy;
-                $scope.points = points;
-                $scope.n = n;
-
-                // varianza
-                $scope.vx = sv / n;
-                $scope.vy = sy / n;
-                // covarianza
-                $scope.cvx = ((sumxxy / n) - ($scope.mx * $scope.my)).toFixed(4);
-                // desviacion
-                $scope.dv = Math.sqrt($scope.vx).toFixed(4);
-
-
-            }
-
-
-
-
-        });
-    </script>
+	<script type="text/javascript" src="main.js"></script>
 </body>
 
 </html>
